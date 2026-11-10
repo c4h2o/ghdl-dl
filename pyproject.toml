@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ghdl-dl"
+dynamic = ["version"]
+description = "Multi-connection, resumable downloader for large GitHub release assets (HTTP Range + auto-reconnect)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "c4h2o" }]
+keywords = [
+    "github",
+    "release-assets",
+    "downloader",
+    "resume",
+    "range-request",
+    "multi-threaded",
+    "tkinter",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Environment :: MacOS X",
+    "Environment :: Win32 (MS Windows)",
+    "Environment :: X11 Applications",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: System :: Networking",
+    "Topic :: Utilities",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["build>=1.2", "twine>=5.0"]
+
+[project.urls]
+Homepage = "https://github.com/c4h2o/ghdl-dl"
+Repository = "https://github.com/c4h2o/ghdl-dl"
+Issues = "https://github.com/c4h2o/ghdl-dl/issues"
+Changelog = "https://github.com/c4h2o/ghdl-dl/blob/main/CHANGELOG.md"
+
+[project.scripts]
+ghdl-dl = "ghdl.cli:main"
+
+[project.gui-scripts]
+ghdl-dl-gui = "ghdl.gui:main"
+
+[tool.setuptools.packages.find]
+include = ["ghdl*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "ghdl.__version__" }
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+ghdl = ["assets/*.png", "assets/*.ico", "assets/*.svg"]

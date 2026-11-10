@@ -1,0 +1,49 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+build/
+dist/
+.eggs/
+pip-wheel-metadata/
+
+# --- 虚拟环境 ---
+.venv/
+venv/
+env/
+
+# --- 测试与缓存 ---
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# --- 下载器运行时产生的文件（不要提交到仓库） ---
+*.ghdlpart
+*.ghdlpart.json
+*.ghdlpart.json.tmp
+*.ghdlparts/
+*.ghdlmerge
+tasks.json
+
+# --- 本地配置 / 密钥 ---
+.env
+.env.*
+*.token
+secrets.json
+
+# --- 编辑器与操作系统 ---
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- 日志与临时文件 ---
+*.log
+*.tmp

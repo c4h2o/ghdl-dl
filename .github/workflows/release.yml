@@ -1,0 +1,51 @@
+name: Release
+
+# 推送 v* 标签时自动构建 sdist/wheel，并创建「草稿」Release。
+# 确认内容无误后在 GitHub 页面点 Publish 即可。
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build
+        run: |
+          python -m pip install --upgrade build
+          python -m build
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - name: Create draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true
+          draft: true
+
+# 如果想同时发布到 PyPI，推荐使用 Trusted Publishing（无需保存 Token）：
+#
+#  publish-pypi:
+#    needs: release
+#    runs-on: ubuntu-latest
+#    environment: pypi
+#    permissions:
+#      id-token: write
+#    steps:
+#      - uses: actions/download-artifact@v4
+#        with:
+#          name: dist
+#          path: dist
+#      - uses: pypa/gh-action-pypi-publish@release/v1

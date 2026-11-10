@@ -1,0 +1,20 @@
+# 默认按文本处理，统一用 LF（跨平台一致）
+* text=auto eol=lf
+
+# Windows 批处理必须保留 CRLF：用 -text 关闭换行转换，
+# 这样 git clone / GitHub 下载 ZIP 得到的 .bat 都是 CRLF，cmd 才能正确解析 goto/标签。
+*.bat -text
+*.cmd -text
+
+*.ps1 text eol=crlf
+
+*.png binary
+*.ico binary
+*.icns binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+
+*.zip binary
+*.tar.gz binary
+*.exe binary

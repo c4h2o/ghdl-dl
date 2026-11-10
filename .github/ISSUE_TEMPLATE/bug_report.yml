@@ -1,0 +1,84 @@
+name: 🐞 Bug 报告
+description: 下载失败、卡住、续传/校验异常等问题
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！提交前请先搜索[已有 issue](https://github.com/c4h2o/ghdl-dl/issues)。
+
+        ⚠️ 请勿粘贴 Token、私有仓库真实链接或内网地址。
+
+  - type: input
+    id: version
+    attributes:
+      label: 版本
+      description: 界面标题栏、`ghdl-dl --version` 或 Release 标签
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: 操作系统
+      options:
+        - Windows 11
+        - Windows 10
+        - macOS
+        - Linux
+        - 其他
+    validations:
+      required: true
+
+  - type: input
+    id: python
+    attributes:
+      label: Python 版本
+      placeholder: "3.12.14"
+
+  - type: dropdown
+    id: urltype
+    attributes:
+      label: 链接类型
+      options:
+        - GitHub Release 附件（/releases/download/...）
+        - GitHub 源码包（/archive/...）
+        - 其他 HTTP 链接
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 运行 `ghdl-dl <URL> -n 8`
+        2. 下载到 60% 时断网
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 期望结果 / 实际结果
+      placeholder: 期望自动重连续传；实际程序退出并提示……
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志
+      description: 命令行请加 `-v` 后粘贴输出；图形界面请贴底部日志
+      render: text
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 确认
+      options:
+        - label: 内容中不含 Token、私有链接等敏感信息
+          required: true
