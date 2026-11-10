@@ -104,7 +104,9 @@ class Response:
     def read(self, n: int = -1) -> bytes:
         try:
             return self._resp.read(n)
-        except (OSError, http.client.HTTPException, ssl.SSLError) as exc:  # 含超时、连接重置
+        except (OSError, http.client.HTTPException, ssl.SSLError, ValueError, EOFError) as exc:
+            # 含超时、连接重置，以及被 abort() 关闭连接后 read 抛出的
+            # ValueError("I/O operation on closed file") / EOFError
             raise NetworkError(f"读取数据失败: {exc or type(exc).__name__}") from exc
 
     def read_all(self, limit: int = 64 * 1024) -> bytes:
@@ -118,7 +120,7 @@ class Response:
                     break
                 chunks.append(piece)
                 got += len(piece)
-        except (OSError, http.client.HTTPException):
+        except (OSError, http.client.HTTPException, ssl.SSLError, ValueError, EOFError):
             pass
         return b"".join(chunks)
 

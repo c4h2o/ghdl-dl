@@ -648,6 +648,9 @@ class DownloadJob:
                 self._fail(exc)
                 return
             except Exception as exc:  # pragma: no cover
+                # 用户已请求暂停时，abort() 可能让 read() 抛任意异常，视为正常停止
+                if self._stop.is_set():
+                    return
                 self._fail(FatalError(f"下载线程异常：{type(exc).__name__}: {exc}"))
                 return
             finally:
