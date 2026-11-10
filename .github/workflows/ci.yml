@@ -16,7 +16,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        # ubuntu-latest 已漂移到 26.04，其上没有 Python 3.9 构建；固定 LTS 保证矩阵稳定。
+        os: [ubuntu-24.04, windows-latest, macos-latest]
         python-version: ["3.9", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@v4
@@ -30,7 +31,7 @@ jobs:
 
   package:
     name: build sdist + wheel
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
